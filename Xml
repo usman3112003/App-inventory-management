@@ -1,0 +1,561 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainPageLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp" >
+
+    <!-- App Name Center Top -->
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Product App"
+        android:textColor="#4A90E2"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- General Button Top Left -->
+
+    <ImageButton
+        android:id="@+id/toggleButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Toggle Menu"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        android:tint="@android:color/black"
+        android:visibility="visible" />
+
+    <!-- toggle bar menu -->
+
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/toggleButton"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/menu_background"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/trackUpdatedData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Track Updated Price Records"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/contactOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Contact Us"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/aboutOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="About Us"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- track data to ui textview -->
+
+    <TextView
+        android:id="@+id/trackUpdatedData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Show Product Log"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <!-- Buttons Layout -->
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/inputProductButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#4A90E2"
+            android:text="Input the Product"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/getProductsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#50E3C2"
+            android:text="Get the Products"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/updateTheData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#FF6F99"
+            android:text="Update Existing Product Price"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/findTheData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#A45C68"
+            android:text="Find the Data"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+			
+		<Button
+            android:id="@+id/dailySalesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#D1C4E9"
+            android:text="Input Daily Sales"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/monthlySalesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F5A623"
+            android:text="Monthly Sales"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Scrollable container for all content below buttons -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/inputLayout"
+        android:layout_below="@id/buttonLayout"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- Data Field -->
+
+            <LinearLayout
+                android:id="@+id/dataField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product:"
+                    android:textColor="#4A90E2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/productField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#E6E6E6"
+                    android:hint="Enter Product Type"
+                    android:padding="12dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#888888" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Name:"
+                    android:textColor="#4A90E2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/nameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#E6E6E6"
+                    android:hint="Enter Product Name"
+                    android:padding="12dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#888888" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Price:"
+                    android:textColor="#4A90E2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/priceField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#E6E6E6"
+                    android:hint="Enter Product Price"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#888888" />
+
+                <Button
+                    android:id="@+id/saveDataButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="#4A90E2"
+                    android:text="Save Data"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Update Data Field -->
+
+            <LinearLayout
+                android:id="@+id/updateDataField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/updateProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter Product Type"
+                    android:inputType="text"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/updateName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter Product Name"
+                    android:inputType="text"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/updatePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="Enter New Price"
+                    android:inputType="number"
+                    android:padding="12dp" />
+
+                <Button
+                    android:id="@+id/updateDataButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="#1976D2"
+                    android:padding="14dp"
+                    android:text="Update Price"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Search Field -->
+
+            <LinearLayout
+                android:id="@+id/searchDataField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F4F6F8"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/searchProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Enter Product Type"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text=" or "
+                    android:textColor="#121212"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/searchName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Enter Product Name"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/SearchData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#0D47A1"
+                    android:elevation="4dp"
+                    android:padding="14dp"
+                    android:text="Search"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- search result data appearance -->
+
+                <LinearLayout
+                    android:id="@+id/searchResultData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="16dp" >
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Get Data Section -->
+
+            <LinearLayout
+                android:id="@+id/getData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone" />
+				
+				<!-- Sales per Day layout -->
+	<LinearLayout
+	android:id="@+id/salesPerDay"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="16dp"
+	android:background="#F5F5F5"
+	android:visibility="gone"
+	android:elevation="4dp">
+	
+	<EditText
+	android:id="@+id/productSalesDay"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:hint="Product Name"
+	android:inputType="text"
+	android:background="@android:drawable/edit_text"
+	android:padding="12dp"
+	android:textColor="#212121"
+	android:textColorHint="#9E9E9E"
+	android:textSize="16sp"
+	android:layout_marginBottom="12dp" />
+	
+	<EditText
+	android:id="@+id/qtySalesDay"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:hint="Quantity Sold"
+	android:inputType="number"
+	android:background="@android:drawable/edit_text"
+	android:padding="12dp"
+	android:textColor="#212121"
+	android:textColorHint="#9E9E9E"
+	android:textSize="16sp"
+	android:layout_marginBottom="12dp" />
+	
+	<Button
+	android:id="@+id/saveSalesDayBtn"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:text="Save"
+	android:background="#1976D2"
+	android:textColor="#FFFFFF"
+	android:textStyle="bold"
+	android:padding="12dp"
+	android:textSize="16sp"
+	android:layout_marginTop="8dp"
+	android:elevation="2dp" />
+	</LinearLayout>
+        </LinearLayout>
+		
+		
+    </ScrollView>
+
+    <!-- Bottom Input Layout -->
+
+    <LinearLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#002244"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <EditText
+            android:id="@+id/inputField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Type a product..."
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA" />
+
+        <ImageButton
+            android:id="@+id/voiceButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Voice Input"
+            android:src="@android:drawable/ic_btn_speak_now" />
+			
+			
+			
+			
+    </LinearLayout>
+
+
+
+
+
+    <!-- setting data result view -->
+  
+   
+   <LinearLayout
+   android:id="@+id/resultDataView"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical"
+   android:padding="6dp"
+   android:background="@drawable/rounded_border"
+   android:visibility="gone" >
+   
+  <!-- back button -->
+   <LinearLayout
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:orientation="horizontal"
+   android:gravity="start"
+   android:paddingBottom="8dp">
+   
+   
+   
+   <ImageButton
+   android:id="@+id/backToSettingFromTrack"
+   android:layout_width="40dp"
+   android:layout_height="40dp"
+   android:layout_margin="4dp"
+   android:background="@android:color/transparent"
+   android:contentDescription="Back to Setting"
+   android:src="@android:drawable/ic_menu_revert" />
+   </LinearLayout>
+   
+ 
+    <ScrollView 
+	   
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:background="#ECEFF1">
+   
+   <TextView
+   android:id="@+id/fullTextView"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:padding="20dp"
+   android:background="@drawable/rounded_textview_bg"
+   android:text="Here is your full screen text..."
+   android:textSize="18sp"
+   android:textColor="#212121"
+   android:fontFamily="sans-serif-medium"
+   android:gravity="to
