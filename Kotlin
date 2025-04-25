@@ -1,0 +1,998 @@
+package com.usman.description
+
+import android.app.Activity
+import android.os.Bundle
+
+
+import android.content.Context
+import android.os.Environment
+import android.widget.Toast
+import org.json.JSONObject
+import java.io.File
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.ScrollView
+import android.widget.LinearLayout
+
+import android.view.View
+
+import java.io.InputStreamReader
+import java.io.BufferedReader
+
+import java.io.OutputStreamWriter
+
+import org.json.JSONArray
+
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
+import android.view.Gravity
+
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+
+
+
+
+
+public class MainActivity : Activity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
+		 
+		 
+		 
+		 // main page button
+		 val inputProductButton = findViewById<Button>(R.id.inputProductButton)
+val getProductsButton = findViewById<Button>(R.id.getProductsButton)
+val monthlySalesButton = findViewById<Button>(R.id.monthlySalesButton)
+val updateButton = findViewById<Button>(R.id.updateTheData )
+val findButton = findViewById<Button>(R.id.findTheData )
+val dailySalesBtn = findViewById<Button>(R.id.dailySalesBtn)
+
+
+
+
+
+  // input data Fields
+  val saveDataButton = findViewById<Button>(R.id.saveDataButton)
+val productField = findViewById<EditText>(R.id.productField)
+val nameField = findViewById<EditText>(R.id.nameField)
+val priceField = findViewById<EditText>(R.id.priceField)
+
+
+
+
+      // input linear lauout structure 
+val dataField = findViewById<LinearLayout>(R.id.dataField)
+
+       // get the data linear layout structure
+val getDataLayout: LinearLayout = findViewById(R.id.getData)	 
+
+
+// update input,button and container
+val updateProduct = findViewById<EditText>(R.id.updateProduct)
+val updateName = findViewById<EditText>(R.id.updateName)
+val updatePrice = findViewById<EditText>(R.id.updatePrice)
+val updateDataButton = findViewById<Button>(R.id.updateDataButton)
+val updateContainer = findViewById<LinearLayout>(R.id.updateDataField)
+  
+//Searchdatafield layout and elements
+var searchProductField = findViewById<EditText>(R.id.searchProduct)
+var searchNameField = findViewById<EditText>(R.id.searchName)
+val searchDataButton = findViewById<Button>(R.id.SearchData)
+
+// sales per day elements
+val salesPerDay = findViewById<LinearLayout>(R.id.salesPerDay)
+val productSalesDay = findViewById<EditText>(R.id.productSalesDay)
+val qtySalesDay = findViewById<EditText>(R.id.qtySalesDay)
+val saveSalesDayBtn = findViewById<Button>(R.id.saveSalesDayBtn)
+
+
+
+
+
+
+// Flag to track visibility
+var flag1 = false
+var flag2 = false
+var flag3 = false
+var flag4 = false
+var flag5 = false
+var flag6 = false
+
+// Handle Product Entry
+inputProductButton.setOnClickListener {
+	if (!flag1) {
+        getProductsButton.visibility = View.GONE
+        monthlySalesButton.visibility = View.GONE
+		updateButton.visibility = View.GONE
+		findButton.visibility = View.GONE
+		dailySalesBtn.visibility = View.GONE
+        dataField.visibility = View.VISIBLE	
+        flag1 = true
+    } else {
+        dataField.visibility = View.GONE
+        getProductsButton.visibility = View.VISIBLE
+        monthlySalesButton.visibility = View.VISIBLE
+		updateButton.visibility = View.VISIBLE
+		findButton.visibility = View.VISIBLE
+		dailySalesBtn.visibility = View.VISIBLE
+		
+		// empty the input fields	
+	productField.hint = "Enter Product Type"
+	nameField.hint = "Enter Product Name"
+	priceField.hint = "Enter Product Price"
+        flag1 = false
+    }
+	
+	
+    // You can show a dialog or navigate to input UI
+    Toast.makeText(this, "Input Product Clicked", Toast.LENGTH_SHORT).show()
+}
+
+// Retrieve Products
+getProductsButton.setOnClickListener {
+	
+	if (!flag2) {
+        inputProductButton.visibility = View.GONE
+        monthlySalesButton.visibility = View.GONE
+		updateButton.visibility = View.GONE
+		findButton.visibility = View.GONE
+		dailySalesBtn.visibility = View.GONE
+        getDataLayout.visibility = View.VISIBLE
+        flag2 = true
+    } else {
+        getDataLayout.visibility = View.GONE
+        inputProductButton.visibility = View.VISIBLE
+        monthlySalesButton.visibility = View.VISIBLE
+		updateButton.visibility = View.VISIBLE
+		findButton.visibility = View.VISIBLE
+		dailySalesBtn.visibility = View.VISIBLE
+        flag2 = false
+    }
+	
+	
+     setValuesToUi(this)
+	
+    // Fetch and show product data
+    Toast.makeText(this, "Fetching Products...", Toast.LENGTH_SHORT).show()
+	}
+	
+	
+	// Monthly Sales Logic
+monthlySalesButton.setOnClickListener {
+	if (!flag3) {
+        inputProductButton.visibility = View.GONE
+        getProductsButton.visibility = View.GONE
+		updateButton.visibility = View.GONE
+		findButton.visibility = View.GONE
+		dailySalesBtn.visibility = View.GONE
+        
+        flag3 = true
+    } else {
+        
+        inputProductButton.visibility = View.VISIBLE
+        getProductsButton.visibility = View.VISIBLE
+		updateButton.visibility = View.VISIBLE
+		findButton.visibility = View.VISIBLE
+		dailySalesBtn.visibility = View.VISIBLE
+        flag3 = false
+    }
+	
+	
+	var abc = getSavedSalesData(this).toString()
+    // Show monthly report
+    Toast.makeText(this, abc , Toast.LENGTH_SHORT).show()
+}
+
+
+
+updateButton.setOnClickListener {
+	// get the layout of update data field
+	val updateDataField = findViewById<LinearLayout>(R.id.updateDataField)
+    // Your update logic here
+	if (!flag4) {
+        inputProductButton.visibility = View.GONE
+        getProductsButton.visibility = View.GONE
+		monthlySalesButton.visibility = View.GONE
+		findButton.visibility = View.GONE
+		dailySalesBtn.visibility = View.GONE
+		updateDataField.visibility = View.VISIBLE
+        flag4 = true
+    } else {
+        
+        inputProductButton.visibility = View.VISIBLE
+        getProductsButton.visibility = View.VISIBLE
+		monthlySalesButton.visibility = View.VISIBLE
+		findButton.visibility = View.VISIBLE
+		dailySalesBtn.visibility = View.VISIBLE
+		updateDataField.visibility = View.GONE
+        flag4 = false
+    }
+	
+    Toast.makeText(this, "Data updated", Toast.LENGTH_SHORT).show()
+}
+
+
+
+findButton.setOnClickListener {
+	//searchlayout
+	val searchLayout = findViewById<LinearLayout>(R.id.searchDataField)
+    // Your update logic here
+	if (!flag5) {
+        inputProductButton.visibility = View.GONE
+        getProductsButton.visibility = View.GONE
+		monthlySalesButton.visibility = View.GONE
+		updateButton.visibility = View.GONE
+		dailySalesBtn.visibility = View.GONE
+        searchLayout.visibility = View.VISIBLE
+        flag5 = true
+    } else {
+        
+        inputProductButton.visibility = View.VISIBLE
+        getProductsButton.visibility = View.VISIBLE
+		monthlySalesButton.visibility = View.VISIBLE
+		updateButton.visibility = View.VISIBLE
+		dailySalesBtn.visibility = View.VISIBLE
+		searchLayout.visibility = View.GONE
+		
+        flag5 = false
+    }
+    Toast.makeText(this, "Find btn clicked", Toast.LENGTH_SHORT).show()
+
+}
+
+
+//daily sales btn
+dailySalesBtn.setOnClickListener {
+	
+	if (!flag6) {
+        inputProductButton.visibility = View.GONE
+        monthlySalesButton.visibility = View.GONE
+		updateButton.visibility = View.GONE
+		findButton.visibility = View.GONE
+		getProductsButton.visibility = View.GONE
+        salesPerDay.visibility = View.VISIBLE
+        flag6 = true
+    } else {
+        salesPerDay.visibility = View.GONE
+        inputProductButton.visibility = View.VISIBLE
+        monthlySalesButton.visibility = View.VISIBLE
+		updateButton.visibility = View.VISIBLE
+		findButton.visibility = View.VISIBLE
+		getProductsButton.visibility = View.VISIBLE
+        flag6 = false
+    }
+    // Your action here
+    Toast.makeText(this, "Daily Sales button clicked!", Toast.LENGTH_SHORT).show()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// save the data button action
+saveDataButton.setOnClickListener {
+    val product = productField.text.toString()
+    val name = nameField.text.toString()
+    val price = priceField.text.toString()
+
+    if (product.isNotEmpty() && name.isNotEmpty() && price.isNotEmpty()) {
+        // Save the data (call the method to save the data here)
+		productEntry(this,product,name,price)
+		
+        // For example, save to a file, database, or SharedPreferences
+        Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+    }
+	
+}
+// change the data button click listene
+updateDataButton.setOnClickListener {
+	
+	val product = updateProduct.text.toString()
+	val name = updateName.text.toString()
+	val price = updatePrice.text.toString()
+	
+    if (product.isNotEmpty() && name.isNotEmpty() && price.isNotEmpty()) {
+		// update data
+        updatePriceByProductAndName(this,product, name, price)
+	
+		// save the log of data updated
+		logProductUpdatedToFile(this,product,name,price)
+		
+		Toast.makeText(this, "$name Price Updated", Toast.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+    }
+}
+
+searchDataButton.setOnClickListener {
+    val productValue = searchProductField.text.toString().trim()
+    val nameValue = searchNameField.text.toString().trim()
+
+    if (productValue.isNotEmpty() || nameValue.isNotEmpty()) {
+        // Calling the function and passing EditText values
+        val foundObject = getSearchData(this, productValue, nameValue)
+
+        if (foundObject != null) {
+            // Use the result here (for example, display it)
+            
+        } else {
+            Toast.makeText(this, "No match found.", Toast.LENGTH_SHORT).show()
+        }
+    } else {
+        Toast.makeText(this, "Please Enter either Product / Name to search values", Toast.LENGTH_SHORT).show()
+    }
+}
+
+
+
+
+//all about toggle bar and menus
+val toggleButton = findViewById<ImageButton>(R.id.toggleButton)
+val menuLayout = findViewById<LinearLayout>(R.id.menuLayout)
+
+
+
+toggleButton.setOnClickListener {
+if (menuLayout.visibility == View.GONE) {
+menuLayout.visibility = View.VISIBLE
+} else {
+menuLayout.visibility = View.GONE
+}
+}
+// Optional: Handle individual item clicks
+
+ val trackDatabtn= findViewById<TextView>(R.id.trackUpdatedData)
+ var buttonLayout = findViewById<LinearLayout>(R.id.buttonLayout) // or any ViewGroup type
+val fullTextView = findViewById<TextView>(R.id.fullTextView)  
+ 
+ 
+ // layout for onclikc events view
+ val resultDataView = findViewById<LinearLayout>(R.id.resultDataView)
+val backToSettingFromTrack = findViewById<ImageButton>(R.id.backToSettingFromTrack)
+
+ trackDatabtn.setOnClickListener {
+ val readData = readSavedProductLog(this)
+ 
+ // Show the data in the TextView
+ fullTextView.text = readData
+ fullTextView.visibility = View.VISIBLE
+ resultDataView.visibility = View.VISIBLE
+ backToSettingFromTrack.visibility = View.VISIBLE
+ menuLayout.visibility = View.GONE
+ toggleButton.visibility = View.GONE
+ 
+ 
+ 
+ }
+
+findViewById<TextView>(R.id.contactOption).setOnClickListener {
+	
+		
+	val backToSettingFromContact = findViewById<ImageButton>(R.id.backToSettingFromContact)
+	// layout
+	var contactUs = findViewById<LinearLayout>(R.id.contactUs)
+	contactUs.visibility = View.VISIBLE
+	menuLayout.visibility = View.GONE
+ toggleButton.visibility = View.GONE
+ backToSettingFromContact.visibility = View.VISIBLE
+	
+    Toast.makeText(this, "Contact Us Clicked", Toast.LENGTH_SHORT).show()
+}
+
+
+findViewById<TextView>(R.id.aboutOption).setOnClickListener {
+   val backToSettingFromAbout = findViewById<ImageButton>(R.id.backToSettingFromAbout)   
+	val about_us = findViewById<LinearLayout>(R.id.about_us)
+	
+   about_us.visibility = View.VISIBLE
+	backToSettingFromAbout.visibility = View.VISIBLE
+	menuLayout.visibility = View.GONE
+	toggleButton.visibility = View.GONE
+   
+    Toast.makeText(this, "About Us Clicked", Toast.LENGTH_SHORT).show()
+}
+
+
+
+// ==========================
+// All About Go Back Setting
+// ==========================
+
+
+
+backToSettingFromTrack.setOnClickListener {
+    // Hide the full screen view and go back to the settings or previous layout
+    val resultDataView = findViewById<LinearLayout>(R.id.resultDataView)
+    resultDataView.visibility = View.GONE
+	backToSettingFromTrack.visibility = View.GONE
+	fullTextView.visibility = View.GONE
+	menuLayout.visibility = View.VISIBLE
+	toggleButton.visibility = View.VISIBLE
+ 
+}
+    
+	
+	val backToSettingFromContact = findViewById<ImageButton>(R.id.backToSettingFromContact)   
+	val contactUs = findViewById<LinearLayout>(R.id.contactUs)
+	
+backToSettingFromContact.setOnClickListener {
+    // Hide the full screen view and go back to the settings or previous layout
+    val resultDataView = findViewById<LinearLayout>(R.id.resultDataView)
+    contactUs.visibility = View.GONE
+	backToSettingFromContact.visibility = View.GONE
+	menuLayout.visibility = View.VISIBLE
+	toggleButton.visibility = View.VISIBLE
+ 
+}
+
+
+
+val backToSettingFromAbout = findViewById<ImageButton>(R.id.backToSettingFromAbout)   
+	val about_us = findViewById<LinearLayout>(R.id.about_us)
+	
+backToSettingFromAbout.setOnClickListener {
+    // Hide the full screen view and go back to the settings or previous layout
+    val resultDataView = findViewById<LinearLayout>(R.id.resultDataView)
+    about_us.visibility = View.GONE
+	backToSettingFromAbout.visibility = View.GONE
+	menuLayout.visibility = View.VISIBLE
+	toggleButton.visibility = View.VISIBLE
+ 
+}
+
+
+
+saveSalesDayBtn.setOnClickListener {
+val nameEdit = productSalesDay
+val qtyEdit = qtySalesDay
+
+val name = nameEdit.text.toString().trim()
+val qtyText = qtyEdit.text.toString().trim()
+
+val qty = qtyText.toIntOrNull()
+
+if (name.isEmpty() || qtyText.isEmpty()) {
+Toast.makeText(this, "Please enter both Name and Qty", Toast.LENGTH_SHORT).show()
+} else if (qty == null) {
+Toast.makeText(this, "Please enter a valid Qty", Toast.LENGTH_SHORT).show()
+} else {
+saveSalesData(name, qty, this)
+nameEdit.text.clear()
+qtyEdit.text.clear()
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// closing of oncreate
+
+}
+
+
+
+
+
+
+fun productEntry(context: Context, product: String, name: String, price: String) {
+    val fileName = "my_app_data.json"
+    val file = File(context.filesDir, fileName)
+
+    try {
+        // If the file doesn't exist, create it with an empty JSON array
+        if (!file.exists()) {
+            file.writeText("[]")
+        }
+
+        // Read existing data
+        val existingData = JSONArray(file.readText())
+
+        // Create a new JSON object
+        val newItem = JSONObject().apply {
+            put("Product", product)
+            put("Name", name)
+            put("Price", price)
+        }
+
+        // Add new item to the array
+        existingData.put(newItem)
+
+        // Save updated array to file
+        file.writeText(existingData.toString(4)) // Pretty print with indent
+
+        // Notify success
+        Toast.makeText(context, "Saved item locally to $fileName", Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+    }
+}
+
+}
+
+
+fun getSavedProductData(context: Context): JSONArray {
+return try {
+val file = File(context.filesDir, "my_app_data.json")
+if (!file.exists()) return JSONArray() // Empty array if no data
+
+val jsonText = file.readText()
+JSONArray(jsonText) // Return structured JSON array
+} catch (e: Exception) {
+e.printStackTrace()
+JSONArray() // Return empty on error
+}
+}
+
+fun clearSavedProductData(context: Context) {
+    try {
+        val fileOutput = context.openFileOutput("my_app_data.json", Context.MODE_PRIVATE)
+        fileOutput.write("[]".toByteArray()) // Clears content with empty JSON array
+        fileOutput.close()
+        Toast.makeText(context, "All product data cleared", Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        Toast.makeText(context, "Failed to clear data: ${e.message}", Toast.LENGTH_LONG).show()
+    }
+}
+
+ 
+ fun setValuesToUi(context:Activity){
+	 
+    val dataArray = getSavedProductData(context)
+	
+	// getting existing container of linearlayout
+	val container = context.findViewById<LinearLayout>(R.id.getData)
+	// removing previous values
+	container.removeAllViews()
+	
+	// Calculating the screen width by it's pixel
+	val displayMetrics = context.resources.displayMetrics
+val screenWidth = displayMetrics.widthPixels
+val desiredWidth = (screenWidth * 0.7).toInt()
+	
+	for (i in 0 until dataArray.length()) {
+	val jsonObject = dataArray.getJSONObject(i)
+	val product = jsonObject.getString("Product")
+	val name = jsonObject.getString("Name")
+	val price = jsonObject.getString("Price")
+	 
+
+	 val productView = TextView(context).apply {
+    text = "Product: $product"
+    setTextColor(Color.parseColor("#333333"))
+    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+    setTypeface(null, Typeface.BOLD)
+    setPadding(24, 16, 24, 16)
+    layoutParams = LinearLayout.LayoutParams(
+        desiredWidth,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    ).apply {
+        gravity = Gravity.CENTER_HORIZONTAL
+        setMargins(0, 24, 0, 12)
+    }
+
+    background = GradientDrawable().apply {
+        setColor(Color.parseColor("#E8F0FE")) // light blue
+        cornerRadius = 24f
+    }
+}
+
+val nameView = TextView(context).apply {
+    text = "Name: $name"
+    setTextColor(Color.parseColor("#333333"))
+    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+    setTypeface(null, Typeface.BOLD)
+    setPadding(24, 16, 24, 16)
+    layoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    ).apply {
+        gravity = Gravity.CENTER_HORIZONTAL
+        setMargins(0, 12, 0, 12)
+    }
+
+    background = GradientDrawable().apply {
+        setColor(Color.parseColor("#FCE8E6")) // soft pink
+        cornerRadius = 24f
+    }
+}
+
+val priceView = TextView(context).apply {
+    text = "Price: $price"
+    setTextColor(Color.parseColor("#333333"))
+    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+    setTypeface(null, Typeface.BOLD)
+    setPadding(24, 16, 24, 16)
+    layoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    ).apply {
+        gravity = Gravity.CENTER_HORIZONTAL
+        setMargins(0, 12, 0, 24)
+    }
+
+    background = GradientDrawable().apply {
+        setColor(Color.parseColor("#E6F4EA")) // soft green
+        cornerRadius = 24f
+    }
+}
+	 
+	// append this to ui
+	container.addView(productView)
+    container.addView(nameView)
+    container.addView(priceView)
+
+    }
+	
+	val removeButton = Button(context).apply {
+	id = 1001  // Any unique number
+	text = "Remove all the data"
+	setBackgroundColor(Color.parseColor("#FF6F00"))
+	setTextColor(Color.WHITE)
+	textSize = 16f
+	setTypeface(null, Typeface.BOLD)
+	setPadding(20, 10, 20, 10)
+	
+	layoutParams = LinearLayout.LayoutParams(
+	LinearLayout.LayoutParams.WRAP_CONTENT,
+	LinearLayout.LayoutParams.WRAP_CONTENT
+	).apply {
+	setMargins(20, 20, 20, 20)
+	gravity = Gravity.CENTER_HORIZONTAL
+	}
+	}
+    
+container.addView(removeButton)
+ 
+ removeButton.setOnClickListener {
+	 
+    // Your update logic here
+	clearSavedProductData(context)
+    Toast.makeText(context, "All Credentials Removed", Toast.LENGTH_SHORT).show()
+    }	
+
+}
+fun updatePriceByProductAndName(
+    context: Context,
+    targetProduct: String,
+    targetName: String,
+    newPrice: String
+) {
+	// custom function to make everything simple for matching data         
+fun String.norm(): String {
+    return this
+        .trim()
+        .lowercase()
+        .replace(Regex("[^a-z0-9 ]"), "")
+        .replace(Regex("\\s+"), " ")
+        .replaceFirstChar { it.uppercase() }
+}
+
+    val fileName = "my_app_data.json"
+    val file = context.getFileStreamPath(fileName)
+
+    if (file.exists()) {
+        val fileContent = context.openFileInput(fileName).bufferedReader().use { it.readText() }
+        val jsonArray = JSONArray(fileContent)
+
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            if (jsonObject.optString("Product").norm() == targetProduct.norm() &&
+                jsonObject.optString("Name").norm() == targetName.norm()
+            ) {
+                jsonObject.put("Price", newPrice)
+                break // remove this if you want to update all matching entries
+            }
+        }
+
+        // Save updated data back to the file
+        context.openFileOutput(fileName, Context.MODE_PRIVATE).use {
+            it.write(jsonArray.toString().toByteArray())
+        }
+    }
+}
+
+fun getSearchData(context: Context, productValue: String, nameValue: String): JSONArray? {
+
+fun String.norm(): String {
+    return this
+        .trim()
+        .lowercase()
+        .replace(Regex("[^a-z0-9 ]"), "")
+        .replace(Regex("\\s+"), " ")
+        .replaceFirstChar { it.uppercase() }
+}
+
+
+var matchedData = JSONArray()
+
+try {
+val fileInput = context.openFileInput("my_app_data.json")
+val jsonString = fileInput.bufferedReader().use { it.readText() }
+val jsonArray = JSONArray(jsonString)
+
+val targetProduct = productValue.norm()
+val targetName = nameValue.norm()
+
+for (i in 0 until jsonArray.length()) {
+val obj = jsonArray.getJSONObject(i)
+val product = obj.optString("Product").norm()
+val name = obj.optString("Name").norm()
+
+// Exact match
+if (product == targetProduct && name == targetName) {
+	
+	 matchedData.put(obj)
+}
+
+// Store partial match if any field matches
+else if (product == targetProduct && targetName.isBlank()) {
+	matchedData.put(obj)
+}
+else if (name == targetName && targetProduct.isBlank())  {
+	matchedData.put(obj)
+}
+
+}
+} catch (e: Exception) {
+e.printStackTrace()
+}
+
+
+  
+  // Calculating the screen width by it's pixel
+	val displayMetrics = context.resources.displayMetrics
+val screenWidth = displayMetrics.widthPixels
+val desiredWidth = (screenWidth * 0.7).toInt()
+
+// layout
+var searchProductField = (context as Activity).findViewById<LinearLayout>(R.id.searchResultData)
+searchProductField.removeAllViews()
+
+
+if (matchedData.length() == 0) {
+    val noResultView = TextView(context).apply {
+        text = "Data is not Exist"
+        setTextColor(Color.parseColor("#FF3B30")) // red color for alert
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        setTypeface(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC)
+        gravity = Gravity.CENTER
+        setPadding(32, 48, 32, 48)
+        layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            gravity = Gravity.CENTER
+            setMargins(0, 64, 0, 0)
+        }
+    }
+     searchProductField.addView(noResultView)
+}
+
+  
+  // setting values to ui
+  for (i in 0 until matchedData.length()) {
+      
+	  val item = matchedData.getJSONObject(i)	  
+	  
+	  val productView = TextView(context).apply {
+	  text = "Product: ${item.getString("Product")}"
+	  setTextColor(Color.parseColor("#1A1A1A")) // darker gray
+	  setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+	  setTypeface(Typeface.SANS_SERIF, Typeface.BOLD)
+	  setPadding(32, 20, 32, 20)
+	  layoutParams = LinearLayout.LayoutParams(
+	  desiredWidth,
+	  LinearLayout.LayoutParams.WRAP_CONTENT
+	  ).apply {
+	  gravity = Gravity.CENTER_HORIZONTAL
+	  setMargins(0, 28, 0, 14)
+	  }
+	  background = GradientDrawable().apply {
+	  setColor(Color.parseColor("#D6E4FF")) // subtle professional blue
+	  cornerRadius = 36f
+	  }
+	  }
+	  
+	  val nameView = TextView(context).apply {
+	  text = "Name: ${item.getString("Name")}"
+	  setTextColor(Color.parseColor("#1A1A1A"))
+	  setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+	  setTypeface(Typeface.SANS_SERIF, Typeface.BOLD)
+	  setPadding(32, 20, 32, 20)
+	  layoutParams = LinearLayout.LayoutParams(
+	  LinearLayout.LayoutParams.WRAP_CONTENT,
+	  LinearLayout.LayoutParams.WRAP_CONTENT
+	  ).apply {
+	  gravity = Gravity.CENTER_HORIZONTAL
+	  setMargins(0, 16, 0, 14)
+	  }
+	  background = GradientDrawable().apply {
+	  setColor(Color.parseColor("#FFE2E0")) // calm pink tone
+	  cornerRadius = 36f
+	  }
+	  }
+	  
+	  val priceView = TextView(context).apply {
+	  text = "Price: ${item.getDouble("Price")}"
+	  setTextColor(Color.parseColor("#1A1A1A"))
+	  setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+	  setTypeface(Typeface.SANS_SERIF, Typeface.BOLD)
+	  setPadding(32, 20, 32, 20)
+	  layoutParams = LinearLayout.LayoutParams(
+	  LinearLayout.LayoutParams.WRAP_CONTENT,
+	  LinearLayout.LayoutParams.WRAP_CONTENT
+	  ).apply {
+	  gravity = Gravity.CENTER_HORIZONTAL
+	  setMargins(0, 16, 0, 28)
+	  }
+	  background = GradientDrawable().apply {
+	  setColor(Color.parseColor("#D9F6E6")) // soft mint green
+	  cornerRadius = 36f
+	  }
+	  }
+	 
+	searchProductField.addView(productView)
+	searchProductField.addView(nameView)
+	searchProductField.addView(priceView)
+	
+	   
+	   
+	   
+    } 
+   
+   // Return Array with matched values only if no exact match was found
+  return matchedData
+}
+
+
+
+
+
+
+
+
+
+
+
+fun logProductUpdatedToFile(context: Context, product: String, name: String, price: String) {
+    val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+    val logEntry = "$timestamp - Product: $product, Name: $name, Price: $price\n"
+
+    try {
+        val file = File(context.filesDir, "product_log.txt")
+        file.appendText(logEntry)
+    } catch (e: Exception) {
+        e.printStackTrace()
+		Toast.makeText(context, "Error getting Log data", Toast.LENGTH_SHORT).show()
+    }
+}
+
+
+fun readSavedProductLog(context: Context): String {
+return try {
+val file = File(context.filesDir, "product_log.txt")
+if (file.exists()) {
+file.readText()
+} else {
+Toast.makeText(context, "No product log found.", Toast.LENGTH_SHORT).show()
+"No product log found."
+}
+} catch (e: Exception) {
+e.printStackTrace()
+Toast.makeText(context, "Error reading log file.", Toast.LENGTH_SHORT).show()
+"Error reading log file."
+}
+}
+
+
+fun saveSalesData(name: String, qty: Int, context: Context) {
+val filename = "sales_data.json"
+val file = File(context.filesDir, filename)
+
+val jsonArray = if (file.exists()) {
+val content = file.readText()
+JSONArray(content)
+} else {
+JSONArray()
+}
+
+val newObject = JSONObject()
+newObject.put("name", name)
+newObject.put("qty", qty)
+
+jsonArray.put(newObject)
+
+file.writeText(jsonArray.toString())
+
+Toast.makeText(context, "Data saved successfully", Toast.LENGTH_SHORT).show()
+}
+
+fun getSavedSalesData(context: Context): List<Pair<String, Int>> {
+val filename = "sales_data.json"
+val file = File(context.filesDir, filename)
+val salesList = mutableListOf<Pair<String, Int>>()
+
+if (file.exists()) {
+val content = file.readText()
+val jsonArray = JSONArray(content)
+
+for (i in 0 until jsonArray.length()) {
+val obj = jsonArray.getJSONObject(i)
+val name = obj.getString("name")
+val qty = obj.getInt("qty")
+salesList.add(Pair(name, qty))
+}
+}
+
+return salesList
+}
+
+
+
+
+
+
+
+
+
+
