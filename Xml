@@ -558,4 +558,223 @@
    android:textSize="18sp"
    android:textColor="#212121"
    android:fontFamily="sans-serif-medium"
-   android:gravity="to
+   android:gravity="top|start"
+   android:elevation="6dp"
+   android:visibility="gone" />
+   
+    
+    </ScrollView>
+   </LinearLayout>
+   
+   <!-- Contact us layout -->
+	 <LinearLayout
+	 android:id="@+id/contactUs"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical"
+	 android:padding="16dp"
+	 android:layout_marginTop="12dp"
+	 android:layout_marginBottom="12dp"
+	 android:divider="?android:attr/dividerHorizontal"
+	 android:showDividers="middle"
+	 android:background="@drawable/rounded_border"
+	 android:visibility="gone">
+	 
+	 <!-- back button -->
+   <LinearLayout
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:orientation="horizontal"
+   android:gravity="start"
+   android:paddingBottom="8dp">
+   
+   
+   
+   <ImageButton
+   android:id="@+id/backToSettingFromContact"
+   android:layout_width="40dp"
+   android:layout_height="40dp"
+   android:layout_margin="4dp"
+   android:background="@android:color/transparent"
+   android:contentDescription="Back to Setting"
+   android:src="@android:drawable/ic_menu_revert" />
+   </LinearLayout>
+	 
+	 <!-- YouTube -->
+	 <LinearLayout
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:orientation="horizontal"
+	 android:gravity="center_vertical"
+	 android:padding="8dp">
+	 
+	 <ImageView
+	 android:layout_width="24dp"
+	 android:layout_height="24dp"
+	 android:background="@drawable/rounded_border"
+	 android:src="@android:drawable/ic_media_play"
+	 android:contentDescription="YouTube" />
+	 
+	 <TextView
+	 android:id="@+id/youtubeLink"
+	 android:layout_width="wrap_content"
+	 android:layout_height="wrap_content"
+	 android:layout_marginStart="12dp"
+	 android:text="https://youtube.com/@codewithusman010"
+	 android:textStyle="bold" 
+	 android:autoLink="web"
+	   android:clickable="true"
+    android:textColor="@android:color/holo_blue_dark"/>
+	 </LinearLayout>
+	 
+	 <!-- TikTok -->
+	 <LinearLayout
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:orientation="horizontal"
+	 android:gravity="center_vertical"
+	 android:padding="8dp">
+	 
+	 <ImageView
+	 android:layout_width="24dp"
+	 android:layout_height="24dp"
+	 android:background="@drawable/rounded_border"
+	 android:src="@android:drawable/ic_menu_share"
+	 android:contentDescription="TikTok" />
+	 
+	 <TextView
+	 android:id="@+id/tiktokLink"
+	 android:layout_width="wrap_content"
+	 android:layout_height="wrap_content"
+	 android:layout_marginStart="12dp"
+	 android:text="https://tiktok.com/@nationdeath"
+	 android:textStyle="bold"
+	 android:autoLink="web"
+	   android:clickable="true"
+    android:textColor="@android:color/holo_blue_dark" />
+	 </LinearLayout>
+	 
+	 <!-- Email -->
+	 <LinearLayout
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:orientation="horizontal"
+	 android:gravity="center_vertical"
+	 android:padding="8dp">
+	 
+	 <ImageView
+	 android:layout_width="24dp"
+	 android:layout_height="24dp"
+	 android:src="@android:drawable/ic_dialog_email"
+	 android:contentDescription="Email" />
+	 
+	 <TextView
+	 android:id="@+id/emailText"
+	 android:layout_width="wrap_content"
+	 android:layout_height="wrap_content"
+	 android:layout_marginStart="12dp"
+	 android:text="muhammadusman30120032@gmail.com"
+	 android:textStyle="bold" 
+android:autoLink="email"
+	 android:clickable="true"
+	 android:textColor="@android:color/holo_blue_dark"	 />
+	 </LinearLayout>
+	 
+	 <!-- Phone -->
+	 <LinearLayout
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:orientation="horizontal"
+	 android:gravity="center_vertical"
+	 android:padding="8dp">
+	 
+	 <ImageView
+	 android:layout_width="24dp"
+	 android:layout_height="24dp"
+	 android:background="@drawable/rounded_border"
+	 android:src="@android:drawable/ic_menu_call"
+	 android:contentDescription="Phone Number" />
+	 
+	 <TextView
+	 android:id="@+id/phoneText"
+	 android:layout_width="wrap_content"
+	 android:layout_height="wrap_content"
+	 android:layout_marginStart="12dp"
+	 android:text="+880 186770163"
+	 android:textStyle="bold"
+	android:autoLink="phone"
+	  android:clickable="true"
+	  android:textColor="@android:color/holo_blue_dark"  />
+	 </LinearLayout>
+	 </LinearLayout>
+	 
+	 
+	 	 <!-- ABOUT US -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/about_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/rounded_border"
+    android:orientation="vertical"
+    android:padding="16dp"
+	android:visibility="gone">
+	
+	 <!-- back button -->
+   <LinearLayout
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:orientation="horizontal"
+   android:gravity="start"
+   android:paddingBottom="8dp">
+   
+   
+   
+   <ImageButton
+   android:id="@+id/backToSettingFromAbout"
+   android:layout_width="40dp"
+   android:layout_height="40dp"
+   android:layout_margin="4dp"
+   android:background="@android:color/transparent"
+   android:contentDescription="Back to Setting"
+   android:src="@android:drawable/ic_menu_revert" />
+   </LinearLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/about_us_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- ScrollView for Description Text -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/about_us_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Product App, your trusted companion for managing product data effortlessly and efficiently. We are committed to creating a simple yet powerful tool that helps individuals, shopkeepers, small businesses, and inventory managers keep track of their products with confidence and clarity.
+			
+			At Product App, we understand the daily challenges of managing a growing list of products—tracking prices, maintaining records, updating data, and analyzing trends. That’s why we’ve designed our app with native technology to ensure lightweight performance, full offline access, and smooth operation on all Android devices.
+			
+			With features like product entry, updates, monthly reporting, and a clean, user-friendly interface, our goal is to provide a seamless experience for our users. No internet? No problem. Your data is stored locally, giving you complete control and privacy.
+			
+			Our mission is to empower users with a reliable tool that saves time, reduces errors, and supports smarter decision-making. We’re constantly working to improve and expand the app based on your feedback, so you always have the best tools in your hands.
+			
+			Thank you for choosing Product App—where smart management begins."
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:lineSpacingExtra="8dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+    </ScrollView>
+
+</LinearLayout>
+  
+</RelativeLayout>
