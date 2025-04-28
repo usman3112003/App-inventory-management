@@ -35,6 +35,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+import android.content.Intent
+
+import android.graphics.Paint
+import android.graphics.Canvas
+import android.widget.FrameLayout
+
+
 
 
 
@@ -44,7 +51,7 @@ public class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
-         setContentView(R.layout.activity_main)
+         setContentView(R.layout.activity_main)		 
 		 
 		 
 		 
@@ -166,33 +173,51 @@ getProductsButton.setOnClickListener {
 	}
 	
 	
-	// Monthly Sales Logic
-monthlySalesButton.setOnClickListener {
+	
+	
+	
+
+	// monthly sales btn 
+	monthlySalesButton.setOnClickListener {
+	
+	val graphContainer = findViewById<LinearLayout>(R.id.graphContainer)
+
+	
+    var sales = getSalesList(this)	
+	// Create a graph view with the sales data
+	val graphView = SalesBarGraphView(this, sales)
+	graphView.layoutParams = LinearLayout.LayoutParams(
+	LinearLayout.LayoutParams.MATCH_PARENT,
+	LinearLayout.LayoutParams.WRAP_CONTENT
+	)
+	
+	// Add the graph view to the graph container
+	graphContainer.removeAllViews()  // Optional: clear any previous views
+	graphContainer.addView(graphView)
+	
+	// Toggle visibility of the graph container and other buttons
 	if (!flag3) {
-        inputProductButton.visibility = View.GONE
-        getProductsButton.visibility = View.GONE
-		updateButton.visibility = View.GONE
-		findButton.visibility = View.GONE
-		dailySalesBtn.visibility = View.GONE
-        
-        flag3 = true
-    } else {
-        
-        inputProductButton.visibility = View.VISIBLE
-        getProductsButton.visibility = View.VISIBLE
-		updateButton.visibility = View.VISIBLE
-		findButton.visibility = View.VISIBLE
-		dailySalesBtn.visibility = View.VISIBLE
-        flag3 = false
-    }
+	inputProductButton.visibility = View.GONE
+	getProductsButton.visibility = View.GONE
+	updateButton.visibility = View.GONE
+	findButton.visibility = View.GONE
+	dailySalesBtn.visibility = View.GONE
+	graphContainer.visibility = View.VISIBLE
+	
+	flag3 = true
+	} else {
+	inputProductButton.visibility = View.VISIBLE
+	getProductsButton.visibility = View.VISIBLE
+	updateButton.visibility = View.VISIBLE
+	findButton.visibility = View.VISIBLE
+	dailySalesBtn.visibility = View.VISIBLE
+	graphContainer.visibility = View.GONE
+	flag3 = false
+	}
+	
+	}
 	
 	
-	var abc = getSavedSalesData(this).toString()
-    // Show monthly report
-    Toast.makeText(this, abc , Toast.LENGTH_SHORT).show()
-}
-
-
 
 updateButton.setOnClickListener {
 	// get the layout of update data field
@@ -374,7 +399,7 @@ menuLayout.visibility = View.GONE
 val fullTextView = findViewById<TextView>(R.id.fullTextView)  
  
  
- // layout for onclikc events view
+ // layout for  track onclikc events view
  val resultDataView = findViewById<LinearLayout>(R.id.resultDataView)
 val backToSettingFromTrack = findViewById<ImageButton>(R.id.backToSettingFromTrack)
 
@@ -392,6 +417,39 @@ val backToSettingFromTrack = findViewById<ImageButton>(R.id.backToSettingFromTra
  
  
  }
+ 
+ 
+ 
+ 
+ 
+ // layout for  Sales log  onclikc events view
+ val salesLayout = findViewById<LinearLayout>(R.id.salesLayout)
+val backToSettingFromLog = findViewById<ImageButton>(R.id.backToSettingFromLog)
+val fullSalesView = findViewById<TextView>(R.id.fullSalesView)  
+
+ findViewById<TextView>(R.id.getSalesData).setOnClickListener {
+	 
+	 fullSalesView.visibility = View.VISIBLE
+ salesLayout.visibility = View.VISIBLE
+ backToSettingFromLog.visibility = View.VISIBLE
+ menuLayout.visibility = View.GONE
+ toggleButton.visibility = View.GONE
+	
+	var salesLog = readSalesLog(this)
+	if (salesLog == ""){
+	 // Show the data in the TextView
+	 
+     fullSalesView.text = "No log data found"
+	}
+	else {
+		fullSalesView.text = salesLog
+		}
+	
+	Toast.makeText(this, "Log Data", Toast.LENGTH_SHORT).show()
+	
+	}
+	
+	
 
 findViewById<TextView>(R.id.contactOption).setOnClickListener {
 	
@@ -419,6 +477,13 @@ findViewById<TextView>(R.id.aboutOption).setOnClickListener {
    
     Toast.makeText(this, "About Us Clicked", Toast.LENGTH_SHORT).show()
 }
+
+findViewById<TextView>(R.id.shareUs).setOnClickListener {
+	shareApp(this)
+	
+	Toast.makeText(this, "Share us", Toast.LENGTH_SHORT).show()
+	
+	}
 
 
 
@@ -469,6 +534,23 @@ backToSettingFromAbout.setOnClickListener {
 }
 
 
+backToSettingFromLog.setOnClickListener {
+	fullSalesView.visibility = View.GONE
+ salesLayout.visibility = View.GONE
+ backToSettingFromLog.visibility = View.GONE
+ menuLayout.visibility = View.VISIBLE
+ toggleButton.visibility = View.VISIBLE
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 
 saveSalesDayBtn.setOnClickListener {
 val nameEdit = productSalesDay
@@ -476,6 +558,9 @@ val qtyEdit = qtySalesDay
 
 val name = nameEdit.text.toString().trim()
 val qtyText = qtyEdit.text.toString().trim()
+
+// log sales day
+logDailySales(this,name,qtyText)
 
 val qty = qtyText.toIntOrNull()
 
@@ -490,7 +575,25 @@ qtyEdit.text.clear()
 }
 }
 
+findViewById<TextView>(R.id.shareAppButton).setOnClickListener {
+	shareApp(this)
+	
+	Toast.makeText(this, "Share us", Toast.LENGTH_SHORT).show()
+	
+	}
+	
 
+
+// clear all logs btn
+val clearAllLogs = findViewById<Button>(R.id.clearAllLogs)
+
+clearAllLogs.setOnClickListener {
+	fullSalesView.text =  "ALL LOG CLEARED"
+clearSalesLog(this)
+}
+	
+	
+	
 
 
 
@@ -945,32 +1048,113 @@ Toast.makeText(context, "Error reading log file.", Toast.LENGTH_SHORT).show()
 }
 
 
+
+
+
+
+
+fun logDailySales(context: Context, name: String, qty: String) {
+    val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+    val logEntry = "$timestamp - Name: $name, QTY : $qty\n"
+
+    try {
+        val file = File(context.filesDir, "sales_log.txt")
+        file.appendText(logEntry)
+    } catch (e: Exception) {
+        e.printStackTrace()
+		Toast.makeText(context, "Error getting Log data", Toast.LENGTH_SHORT).show()
+    }
+}
+
+fun readSalesLog(context: Context): String {
+return try {
+val file = File(context.filesDir, "sales_log.txt")
+if (file.exists()) {
+file.readText()
+} else {
+	
+Toast.makeText(context, "No Sales log found.", Toast.LENGTH_SHORT).show()
+"No Sales log found."
+}
+} catch (e: Exception) {
+e.printStackTrace()
+Toast.makeText(context, "Error reading log file.", Toast.LENGTH_SHORT).show()
+"Error reading log file."
+}
+}
+
+
+fun clearSalesLog(context: Context) {
+    try {
+        val file = File(context.filesDir, "sales_log.txt")
+        if (file.exists()) {
+            file.writeText("")  // Overwrite file with empty text
+            Toast.makeText(context, "Sales log cleared.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "No Sales log found to clear.", Toast.LENGTH_SHORT).show()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Toast.makeText(context, "Error clearing log file.", Toast.LENGTH_SHORT).show()
+    }
+}
+
+
+
+
+
+
+
+
+
+
 fun saveSalesData(name: String, qty: Int, context: Context) {
-val filename = "sales_data.json"
+val filename = "sales_data2.json"
 val file = File(context.filesDir, filename)
 
+// Read existing data
 val jsonArray = if (file.exists()) {
 val content = file.readText()
-JSONArray(content)
+if (content.isNotEmpty()) JSONArray(content) else JSONArray()
 } else {
 JSONArray()
 }
 
+var nameFound = false
+val nameLower = name.lowercase()
+
+// Check if the name already exists (case-insensitive)
+for (i in 0 until jsonArray.length()) {
+val obj = jsonArray.getJSONObject(i)
+val existingNameLower = obj.getString("name").lowercase()
+if (existingNameLower == nameLower) {
+val existingQty = obj.getInt("qty")
+obj.put("qty", existingQty + qty) // Add qty
+obj.put("date", SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())) // Update date
+nameFound = true
+break
+}
+}
+
+// If name not found, create a new entry
+if (!nameFound) {
 val newObject = JSONObject()
 newObject.put("name", name)
 newObject.put("qty", qty)
-
+newObject.put("date", SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
 jsonArray.put(newObject)
+}
 
+// Save updated array back to file
 file.writeText(jsonArray.toString())
 
 Toast.makeText(context, "Data saved successfully", Toast.LENGTH_SHORT).show()
 }
 
-fun getSavedSalesData(context: Context): List<Pair<String, Int>> {
-val filename = "sales_data.json"
+fun getSalesList(context: Context): List<SalesBarGraphView.Sale> {
+val filename = "sales_data2.json"
 val file = File(context.filesDir, filename)
-val salesList = mutableListOf<Pair<String, Int>>()
+val salesList = mutableListOf<SalesBarGraphView.Sale>()
 
 if (file.exists()) {
 val content = file.readText()
@@ -980,13 +1164,23 @@ for (i in 0 until jsonArray.length()) {
 val obj = jsonArray.getJSONObject(i)
 val name = obj.getString("name")
 val qty = obj.getInt("qty")
-salesList.add(Pair(name, qty))
+val date = obj.getString("date")
+salesList.add(SalesBarGraphView.Sale(name, qty, date)) // <-- create Sale object here
 }
 }
 
 return salesList
 }
 
+fun shareApp(context: Context) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, "Check out this app!")
+        val appLink = "https://1024terabox.com/s/1YJY7NxBDenQXv83MbE-Hbg"
+        putExtra(Intent.EXTRA_TEXT, "Hey, check out this Inventory Management app: $appLink")
+    }
+    context.startActivity(Intent.createChooser(shareIntent, "Share via"))
+}
 
 
 
@@ -996,3 +1190,79 @@ return salesList
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SalesBarGraphView(context: Context, private val salesData: List<Sale>) : View(context) {
+
+private val paint = Paint().apply {
+color = Color.RED
+style = Paint.Style.FILL
+}
+
+private val textPaint = Paint().apply {
+color = Color.BLACK
+textSize = 30f
+textAlign = Paint.Align.LEFT
+}
+
+// Sale data class
+data class Sale(val name: String, val qty: Int, val date: String)
+
+// Calculate bar sizes
+private val barHeight = 100f
+private val barSpacing = 50f
+
+// Tell Android how big this View should be
+override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+val desiredHeight = (salesData.size * (barHeight + barSpacing)).toInt()
+
+val width = MeasureSpec.getSize(widthMeasureSpec)
+val height = resolveSize(desiredHeight, heightMeasureSpec)
+
+setMeasuredDimension(width, height)
+}
+
+// Draw the bars
+override fun onDraw(canvas: Canvas) {
+super.onDraw(canvas)
+
+if (salesData.isEmpty()) return
+
+val maxQty = salesData.maxOf { it.qty }
+
+for ((index, sale) in salesData.withIndex()) {
+val top = index * (barHeight + barSpacing)
+val bottom = top + barHeight
+val barLength = (sale.qty.toFloat() / maxQty.toFloat()) * (width.toFloat() - 200f)
+
+canvas.drawRect(0f, top, barLength, bottom, paint)
+
+// Draw the sale name and quantity
+canvas.drawText(sale.name, barLength + 20f, bottom - 20f, textPaint)
+canvas.drawText("${sale.qty}", barLength - 60f, bottom - 20f, textPaint)
+}
+}
+}
