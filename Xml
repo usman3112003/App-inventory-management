@@ -5,34 +5,54 @@
     android:background="#FFFFFF"
     android:padding="16dp" >
 
-    <!-- App Name Center Top -->
-
-    <TextView
-        android:id="@+id/appName"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/topMainPageContent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Product App"
-        android:textColor="#4A90E2"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:background="@drawable/rounded_forTop" >
 
-    <!-- General Button Top Left -->
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Product App"
+            android:textColor="#4A90E2"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/toggleButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Toggle Menu"
-        android:src="@android:drawable/ic_menu_sort_by_size"
-        android:tint="@android:color/black"
-        android:visibility="visible" />
+        <ImageButton
+            android:id="@+id/toggleButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Toggle Menu"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:tint="@android:color/black"
+            android:visibility="visible" />
 
+        <Button
+            android:id="@+id/shareAppButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="sans-serif-medium"
+            android:text="Share this App"
+            android:textColor="#4A90E2"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+			
+			
+    </RelativeLayout>
     <!-- toggle bar menu -->
 
     <LinearLayout
@@ -40,7 +60,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/toggleButton"
+        android:layout_below="@id/topMainPageContent"
         android:layout_marginTop="4dp"
         android:background="@drawable/menu_background"
         android:elevation="8dp"
@@ -62,18 +82,31 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#DDDDDD" />
+			
+			<TextView
+            android:id="@+id/getSalesData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Get Sales Data Records"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD" />
 
         <TextView
             android:id="@+id/contactOption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:text="Contact Us"
+            android:text="Contact us"
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        
 
         <View
             android:layout_width="match_parent"
@@ -85,7 +118,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:text="About Us"
+            android:text="About us"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/shareUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Share us"
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -108,7 +156,7 @@
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appName"
+        android:layout_below="@id/topMainPageContent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
@@ -122,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#4A90E2"
-            android:text="Input the Product"
+            android:text="Product Entry "
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -133,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#50E3C2"
-            android:text="Get the Products"
+            android:text="Get the Product Details"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -144,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#FF6F99"
-            android:text="Update Existing Product Price"
+            android:text="Update Product Price"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -155,18 +203,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#A45C68"
-            android:text="Find the Data"
+            android:text="Find the Product Deatils"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
-			
-		<Button
+
+        <Button
             android:id="@+id/dailySalesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#D1C4E9"
-            android:text="Input Daily Sales"
+            android:text=" Daily Sales Entry "
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -403,6 +451,10 @@
                     android:orientation="vertical"
                     android:padding="16dp" >
                 </LinearLayout>
+
+               
+			   
+					
             </LinearLayout>
 
             <!-- Get Data Section -->
@@ -415,59 +467,68 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:visibility="gone" />
-				
-				<!-- Sales per Day layout -->
-	<LinearLayout
-	android:id="@+id/salesPerDay"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:padding="16dp"
-	android:background="#F5F5F5"
-	android:visibility="gone"
-	android:elevation="4dp">
-	
-	<EditText
-	android:id="@+id/productSalesDay"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:hint="Product Name"
-	android:inputType="text"
-	android:background="@android:drawable/edit_text"
-	android:padding="12dp"
-	android:textColor="#212121"
-	android:textColorHint="#9E9E9E"
-	android:textSize="16sp"
-	android:layout_marginBottom="12dp" />
-	
-	<EditText
-	android:id="@+id/qtySalesDay"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:hint="Quantity Sold"
-	android:inputType="number"
-	android:background="@android:drawable/edit_text"
-	android:padding="12dp"
-	android:textColor="#212121"
-	android:textColorHint="#9E9E9E"
-	android:textSize="16sp"
-	android:layout_marginBottom="12dp" />
-	
-	<Button
-	android:id="@+id/saveSalesDayBtn"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:text="Save"
-	android:background="#1976D2"
-	android:textColor="#FFFFFF"
-	android:textStyle="bold"
-	android:padding="12dp"
-	android:textSize="16sp"
-	android:layout_marginTop="8dp"
-	android:elevation="2dp" />
-	</LinearLayout>
+
+            <!-- Sales per Day layout -->
+
+            <LinearLayout
+                android:id="@+id/salesPerDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F5F5F5"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/productSalesDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Product Name"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/qtySalesDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Quantity Sold"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:textColor="#212121"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/saveSalesDayBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#1976D2"
+                    android:elevation="2dp"
+                    android:padding="12dp"
+                    android:text="Save"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+			<LinearLayout
+			   android:id="@+id/graphContainer"
+			   android:layout_width="match_parent"
+			   android:layout_height="wrap_content"
+			   android:layout_marginTop="24dp"
+			   android:gravity="center_horizontal"
+			   android:orientation="vertical"
+			   android:padding="16dp" >
+			   </LinearLayout>
         </LinearLayout>
-		
 		
     </ScrollView>
 
@@ -499,282 +560,330 @@
             android:background="@android:color/transparent"
             android:contentDescription="Voice Input"
             android:src="@android:drawable/ic_btn_speak_now" />
-			
-			
-			
-			
     </LinearLayout>
 
-
-
-
-
     <!-- setting data result view -->
-  
-   
-   <LinearLayout
-   android:id="@+id/resultDataView"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
-   android:orientation="vertical"
-   android:padding="6dp"
-   android:background="@drawable/rounded_border"
-   android:visibility="gone" >
-   
-  <!-- back button -->
-   <LinearLayout
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:orientation="horizontal"
-   android:gravity="start"
-   android:paddingBottom="8dp">
-   
-   
-   
-   <ImageButton
-   android:id="@+id/backToSettingFromTrack"
-   android:layout_width="40dp"
-   android:layout_height="40dp"
-   android:layout_margin="4dp"
-   android:background="@android:color/transparent"
-   android:contentDescription="Back to Setting"
-   android:src="@android:drawable/ic_menu_revert" />
-   </LinearLayout>
-   
- 
-    <ScrollView 
-	   
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
-   android:background="#ECEFF1">
-   
-   <TextView
-   android:id="@+id/fullTextView"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:padding="20dp"
-   android:background="@drawable/rounded_textview_bg"
-   android:text="Here is your full screen text..."
-   android:textSize="18sp"
-   android:textColor="#212121"
-   android:fontFamily="sans-serif-medium"
-   android:gravity="top|start"
-   android:elevation="6dp"
-   android:visibility="gone" />
-   
-    
-    </ScrollView>
-   </LinearLayout>
-   
-   <!-- Contact us layout -->
-	 <LinearLayout
-	 android:id="@+id/contactUs"
-	 android:layout_width="match_parent"
-	 android:layout_height="match_parent"
-	 android:orientation="vertical"
-	 android:padding="16dp"
-	 android:layout_marginTop="12dp"
-	 android:layout_marginBottom="12dp"
-	 android:divider="?android:attr/dividerHorizontal"
-	 android:showDividers="middle"
-	 android:background="@drawable/rounded_border"
-	 android:visibility="gone">
-	 
-	 <!-- back button -->
-   <LinearLayout
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:orientation="horizontal"
-   android:gravity="start"
-   android:paddingBottom="8dp">
-   
-   
-   
-   <ImageButton
-   android:id="@+id/backToSettingFromContact"
-   android:layout_width="40dp"
-   android:layout_height="40dp"
-   android:layout_margin="4dp"
-   android:background="@android:color/transparent"
-   android:contentDescription="Back to Setting"
-   android:src="@android:drawable/ic_menu_revert" />
-   </LinearLayout>
-	 
-	 <!-- YouTube -->
-	 <LinearLayout
-	 android:layout_width="match_parent"
-	 android:layout_height="wrap_content"
-	 android:orientation="horizontal"
-	 android:gravity="center_vertical"
-	 android:padding="8dp">
-	 
-	 <ImageView
-	 android:layout_width="24dp"
-	 android:layout_height="24dp"
-	 android:background="@drawable/rounded_border"
-	 android:src="@android:drawable/ic_media_play"
-	 android:contentDescription="YouTube" />
-	 
-	 <TextView
-	 android:id="@+id/youtubeLink"
-	 android:layout_width="wrap_content"
-	 android:layout_height="wrap_content"
-	 android:layout_marginStart="12dp"
-	 android:text="https://youtube.com/@codewithusman010"
-	 android:textStyle="bold" 
-	 android:autoLink="web"
-	   android:clickable="true"
-    android:textColor="@android:color/holo_blue_dark"/>
-	 </LinearLayout>
-	 
-	 <!-- TikTok -->
-	 <LinearLayout
-	 android:layout_width="match_parent"
-	 android:layout_height="wrap_content"
-	 android:orientation="horizontal"
-	 android:gravity="center_vertical"
-	 android:padding="8dp">
-	 
-	 <ImageView
-	 android:layout_width="24dp"
-	 android:layout_height="24dp"
-	 android:background="@drawable/rounded_border"
-	 android:src="@android:drawable/ic_menu_share"
-	 android:contentDescription="TikTok" />
-	 
-	 <TextView
-	 android:id="@+id/tiktokLink"
-	 android:layout_width="wrap_content"
-	 android:layout_height="wrap_content"
-	 android:layout_marginStart="12dp"
-	 android:text="https://tiktok.com/@nationdeath"
-	 android:textStyle="bold"
-	 android:autoLink="web"
-	   android:clickable="true"
-    android:textColor="@android:color/holo_blue_dark" />
-	 </LinearLayout>
-	 
-	 <!-- Email -->
-	 <LinearLayout
-	 android:layout_width="match_parent"
-	 android:layout_height="wrap_content"
-	 android:orientation="horizontal"
-	 android:gravity="center_vertical"
-	 android:padding="8dp">
-	 
-	 <ImageView
-	 android:layout_width="24dp"
-	 android:layout_height="24dp"
-	 android:src="@android:drawable/ic_dialog_email"
-	 android:contentDescription="Email" />
-	 
-	 <TextView
-	 android:id="@+id/emailText"
-	 android:layout_width="wrap_content"
-	 android:layout_height="wrap_content"
-	 android:layout_marginStart="12dp"
-	 android:text="muhammadusman30120032@gmail.com"
-	 android:textStyle="bold" 
-android:autoLink="email"
-	 android:clickable="true"
-	 android:textColor="@android:color/holo_blue_dark"	 />
-	 </LinearLayout>
-	 
-	 <!-- Phone -->
-	 <LinearLayout
-	 android:layout_width="match_parent"
-	 android:layout_height="wrap_content"
-	 android:orientation="horizontal"
-	 android:gravity="center_vertical"
-	 android:padding="8dp">
-	 
-	 <ImageView
-	 android:layout_width="24dp"
-	 android:layout_height="24dp"
-	 android:background="@drawable/rounded_border"
-	 android:src="@android:drawable/ic_menu_call"
-	 android:contentDescription="Phone Number" />
-	 
-	 <TextView
-	 android:id="@+id/phoneText"
-	 android:layout_width="wrap_content"
-	 android:layout_height="wrap_content"
-	 android:layout_marginStart="12dp"
-	 android:text="+880 186770163"
-	 android:textStyle="bold"
-	android:autoLink="phone"
-	  android:clickable="true"
-	  android:textColor="@android:color/holo_blue_dark"  />
-	 </LinearLayout>
-	 </LinearLayout>
-	 
-	 
-	 	 <!-- ABOUT US -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/about_us"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-	android:background="@drawable/rounded_border"
-    android:orientation="vertical"
-    android:padding="16dp"
-	android:visibility="gone">
-	
-	 <!-- back button -->
-   <LinearLayout
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:orientation="horizontal"
-   android:gravity="start"
-   android:paddingBottom="8dp">
-   
-   
-   
-   <ImageButton
-   android:id="@+id/backToSettingFromAbout"
-   android:layout_width="40dp"
-   android:layout_height="40dp"
-   android:layout_margin="4dp"
-   android:background="@android:color/transparent"
-   android:contentDescription="Back to Setting"
-   android:src="@android:drawable/ic_menu_revert" />
-   </LinearLayout>
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/about_us_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About Us"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
-
-    <!-- ScrollView for Description Text -->
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/resultDataView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_border"
+        android:orientation="vertical"
+        android:padding="6dp"
+        android:visibility="gone" >
 
-        <TextView
-            android:id="@+id/about_us_description"
+        <!-- back button -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to Product App, your trusted companion for managing product data effortlessly and efficiently. We are committed to creating a simple yet powerful tool that helps individuals, shopkeepers, small businesses, and inventory managers keep track of their products with confidence and clarity.
-			
-			At Product App, we understand the daily challenges of managing a growing list of products—tracking prices, maintaining records, updating data, and analyzing trends. That’s why we’ve designed our app with native technology to ensure lightweight performance, full offline access, and smooth operation on all Android devices.
-			
-			With features like product entry, updates, monthly reporting, and a clean, user-friendly interface, our goal is to provide a seamless experience for our users. No internet? No problem. Your data is stored locally, giving you complete control and privacy.
-			
-			Our mission is to empower users with a reliable tool that saves time, reduces errors, and supports smarter decision-making. We’re constantly working to improve and expand the app based on your feedback, so you always have the best tools in your hands.
-			
-			Thank you for choosing Product App—where smart management begins."
-            android:textSize="16sp"
-            android:textColor="#666666"
-            android:lineSpacingExtra="8dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
-    </ScrollView>
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" >
 
-</LinearLayout>
-  
+            <ImageButton
+                android:id="@+id/backToSettingFromTrack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Back to Setting"
+                android:src="@android:drawable/ic_menu_revert" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECEFF1" >
+
+            <TextView
+                android:id="@+id/fullTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_textview_bg"
+                android:elevation="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="top|start"
+                android:padding="20dp"
+                android:text="Here is your full screen text..."
+                android:textColor="#212121"
+                android:textSize="18sp"
+                android:visibility="gone" />
+        </ScrollView>
+    </LinearLayout>
+
+<!-- Sales Log  layout -->
+<LinearLayout
+        android:id="@+id/salesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_border"
+        android:orientation="vertical"
+        android:padding="6dp"
+        android:visibility="gone" >
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" >
+
+            <ImageButton
+                android:id="@+id/backToSettingFromLog"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Back to Setting"
+                android:src="@android:drawable/ic_menu_revert" />
+        </LinearLayout>
+
+        <ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#ECEFF1">
+		
+		<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		
+		<TextView
+		android:id="@+id/fullSalesView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/rounded_textview_bg"
+		android:elevation="6dp"
+		android:fontFamily="sans-serif-medium"
+		android:gravity="top|start"
+		android:padding="20dp"
+		android:text="Here is your full screen text..."
+		android:textColor="#212121"
+		android:textSize="18sp"
+		android:visibility="gone" />
+		
+		<Button
+		android:id="@+id/clearAllLogs"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:backgroundTint="#F5A623"
+		android:text="Clear All Logs"
+		android:textColor="#FFFFFF"
+		android:textSize="16sp"
+		android:textStyle="bold" />
+		</LinearLayout>
+		
+		</ScrollView>
+		
+    </LinearLayout>
+
+    <!-- Contact us layout -->
+
+    <LinearLayout
+        android:id="@+id/contactUs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_border"
+        android:divider="?android:attr/dividerHorizontal"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:showDividers="middle"
+        android:visibility="gone" >
+
+        <!-- back button -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" >
+
+            <ImageButton
+                android:id="@+id/backToSettingFromContact"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Back to Setting"
+                android:src="@android:drawable/ic_menu_revert" />
+        </LinearLayout>
+
+        <!-- YouTube -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_border"
+                android:contentDescription="YouTube"
+                android:src="@android:drawable/ic_media_play" />
+
+            <TextView
+                android:id="@+id/youtubeLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:autoLink="web"
+                android:clickable="true"
+                android:text="https://youtube.com/@codewithusman010"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- TikTok -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_border"
+                android:contentDescription="TikTok"
+                android:src="@android:drawable/ic_menu_share" />
+
+            <TextView
+                android:id="@+id/tiktokLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:autoLink="web"
+                android:clickable="true"
+                android:text="https://tiktok.com/@nationdeath"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Email -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Email"
+                android:src="@android:drawable/ic_dialog_email" />
+
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:autoLink="email"
+                android:clickable="true"
+                android:text="muhammadusman30120032@gmail.com"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Phone -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_border"
+                android:contentDescription="Phone Number"
+                android:src="@android:drawable/ic_menu_call" />
+
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:autoLink="phone"
+                android:clickable="true"
+                android:text="+880 186770163"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ABOUT US -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/about_us"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_border"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone" >
+
+        <!-- back button -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" >
+
+            <ImageButton
+                android:id="@+id/backToSettingFromAbout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Back to Setting"
+                android:src="@android:drawable/ic_menu_revert" />
+        </LinearLayout>
+
+        <!-- Title -->
+
+        <TextView
+            android:id="@+id/about_us_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="About Us"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- ScrollView for Description Text -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/about_us_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="Welcome to Product App, your trusted companion for managing product data effortlessly and efficiently. We are committed to creating a simple yet powerful tool that helps individuals, shopkeepers, small businesses, and inventory managers keep track of their products with confidence and clarity.        At Product App, we understand the daily challenges of managing a growing list of products—tracking prices, maintaining records, updating data, and analyzing trends. That’s why we’ve designed our app with native technology to ensure lightweight performance, full offline access, and smooth operation on all Android devices.        With features like product entry, updates, monthly reporting, and a clean, user-friendly interface, our goal is to provide a seamless experience for our users. No internet? No problem. Your data is stored locally, giving you complete control and privacy.        Our mission is to empower users with a reliable tool that saves time, reduces errors, and supports smarter decision-making. We’re constantly working to improve and expand the app based on your feedback, so you always have the best tools in your hands.        Thank you for choosing Product App—where smart management begins."
+                android:textColor="#666666"
+                android:textSize="16sp" />
+        </ScrollView>
+    </LinearLayout>
+
 </RelativeLayout>
