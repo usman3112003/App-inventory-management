@@ -50,8 +50,6 @@
             android:textColor="#4A90E2"
             android:textSize="9sp"
             android:textStyle="bold" />
-			
-			
     </RelativeLayout>
     <!-- toggle bar menu -->
 
@@ -82,8 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#DDDDDD" />
-			
-			<TextView
+
+        <TextView
             android:id="@+id/getSalesData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -235,7 +233,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/inputLayout"
         android:layout_below="@id/buttonLayout"
         android:layout_marginTop="16dp"
         android:fillViewport="true" >
@@ -451,10 +448,6 @@
                     android:orientation="vertical"
                     android:padding="16dp" >
                 </LinearLayout>
-
-               
-			   
-					
             </LinearLayout>
 
             <!-- Get Data Section -->
@@ -519,48 +512,24 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
-			<LinearLayout
-			   android:id="@+id/graphContainer"
-			   android:layout_width="match_parent"
-			   android:layout_height="wrap_content"
-			   android:layout_marginTop="24dp"
-			   android:gravity="center_horizontal"
-			   android:orientation="vertical"
-			   android:padding="16dp" >
-			   </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/graphContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp" >
+            </LinearLayout>
         </LinearLayout>
-		
     </ScrollView>
 
-    <!-- Bottom Input Layout -->
+   
 
-    <LinearLayout
-        android:id="@+id/inputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#002244"
-        android:orientation="horizontal"
-        android:padding="8dp" >
+       
 
-        <EditText
-            android:id="@+id/inputField"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Type a product..."
-            android:textColor="#FFFFFF"
-            android:textColorHint="#AAAAAA" />
 
-        <ImageButton
-            android:id="@+id/voiceButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="Voice Input"
-            android:src="@android:drawable/ic_btn_speak_now" />
-    </LinearLayout>
 
     <!-- setting data result view -->
 
@@ -597,24 +566,41 @@
             android:layout_height="match_parent"
             android:background="#ECEFF1" >
 
-            <TextView
-                android:id="@+id/fullTextView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_textview_bg"
-                android:elevation="6dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="top|start"
-                android:padding="20dp"
-                android:text="Here is your full screen text..."
-                android:textColor="#212121"
-                android:textSize="18sp"
-                android:visibility="gone" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/fullTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_textview_bg"
+                    android:elevation="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="top|start"
+                    android:padding="20dp"
+                    android:text="Here is your full screen text..."
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/clearAllText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#121212"
+                    android:text="Clear All Logs"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
-<!-- Sales Log  layout -->
-<LinearLayout
+    <!-- Sales Log  layout -->
+
+    <LinearLayout
         android:id="@+id/salesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -622,7 +608,8 @@
         android:orientation="vertical"
         android:padding="6dp"
         android:visibility="gone" >
-<LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -640,42 +627,40 @@
         </LinearLayout>
 
         <ScrollView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="#ECEFF1">
-		
-		<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
-		
-		<TextView
-		android:id="@+id/fullSalesView"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@drawable/rounded_textview_bg"
-		android:elevation="6dp"
-		android:fontFamily="sans-serif-medium"
-		android:gravity="top|start"
-		android:padding="20dp"
-		android:text="Here is your full screen text..."
-		android:textColor="#212121"
-		android:textSize="18sp"
-		android:visibility="gone" />
-		
-		<Button
-		android:id="@+id/clearAllLogs"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:backgroundTint="#F5A623"
-		android:text="Clear All Logs"
-		android:textColor="#FFFFFF"
-		android:textSize="16sp"
-		android:textStyle="bold" />
-		</LinearLayout>
-		
-		</ScrollView>
-		
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECEFF1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/fullSalesView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_textview_bg"
+                    android:elevation="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="top|start"
+                    android:padding="20dp"
+                    android:text="Here is your full screen text..."
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/clearAllLogs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#F5A623"
+                    android:text="Clear All Logs"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <!-- Contact us layout -->
