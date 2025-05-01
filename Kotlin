@@ -348,10 +348,6 @@ updateDataButton.setOnClickListener {
 		// update data
         updatePriceByProductAndName(this,product, name, price)
 	
-		// save the log of data updated
-		logProductUpdatedToFile(this,product,name,price)
-		
-		Toast.makeText(this, "$name Price Updated", Toast.LENGTH_SHORT).show()
     } else {
         Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
     }
@@ -396,7 +392,7 @@ menuLayout.visibility = View.GONE
 
  val trackDatabtn= findViewById<TextView>(R.id.trackUpdatedData)
  var buttonLayout = findViewById<LinearLayout>(R.id.buttonLayout) // or any ViewGroup type
-val fullTextView = findViewById<TextView>(R.id.fullTextView)  
+var fullTextView = findViewById<TextView>(R.id.fullTextView)  
  
  
  // layout for  track onclikc events view
@@ -406,8 +402,15 @@ val backToSettingFromTrack = findViewById<ImageButton>(R.id.backToSettingFromTra
  trackDatabtn.setOnClickListener {
  val readData = readSavedProductLog(this)
  
- // Show the data in the TextView
- fullTextView.text = readData
+ if (readData == ""){
+	 fullTextView.text = "No log data found"
+ }else{
+	 // Show the data in the TextView
+ fullTextView.text = readData 
+ }
+ 
+
+ 
  fullTextView.visibility = View.VISIBLE
  resultDataView.visibility = View.VISIBLE
  backToSettingFromTrack.visibility = View.VISIBLE
@@ -575,6 +578,10 @@ qtyEdit.text.clear()
 }
 }
 
+
+
+
+
 findViewById<TextView>(R.id.shareAppButton).setOnClickListener {
 	shareApp(this)
 	
@@ -582,6 +589,17 @@ findViewById<TextView>(R.id.shareAppButton).setOnClickListener {
 	
 	}
 	
+
+
+// clear all product logs data
+val clearAllText = findViewById<Button>(R.id.clearAllText)
+
+clearAllText.setOnClickListener {
+	fullTextView.text =  "ALL LOG CLEARED"
+clearProductLog(this)
+}
+
+
 
 
 // clear all logs btn
@@ -637,6 +655,9 @@ clearSalesLog(this)
 
 
 fun productEntry(context: Context, product: String, name: String, price: String) {
+	
+	
+	var status = false
     val fileName = "my_app_data.json"
     val file = File(context.filesDir, fileName)
 
@@ -648,7 +669,20 @@ fun productEntry(context: Context, product: String, name: String, price: String)
 
         // Read existing data
         val existingData = JSONArray(file.readText())
-
+		
+		
+		val dataArray = getSavedProductData(context)
+        
+		for (i in 0 until dataArray.length()) {
+		val jsonObject = dataArray.getJSONObject(i)
+		val nameS = jsonObject.getString("Name")
+		    if(nameS == name){
+			Toast.makeText(context, "Data already Exist Can't Overwrite", Toast.LENGTH_SHORT).show()
+			status  = true
+			}
+		}
+		
+		if (status == false){
         // Create a new JSON object
         val newItem = JSONObject().apply {
             put("Product", product)
@@ -661,9 +695,10 @@ fun productEntry(context: Context, product: String, name: String, price: String)
 
         // Save updated array to file
         file.writeText(existingData.toString(4)) // Pretty print with indent
-
+    
         // Notify success
         Toast.makeText(context, "Saved item locally to $fileName", Toast.LENGTH_SHORT).show()
+	}	
     } catch (e: Exception) {
         e.printStackTrace()
         Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
@@ -843,8 +878,14 @@ fun String.norm(): String {
                 jsonObject.optString("Name").norm() == targetName.norm()
             ) {
                 jsonObject.put("Price", newPrice)
-                break // remove this if you want to update all matching entries
-            }
+				
+						// save the log of data updated
+		logProductUpdatedToFile(context,targetProduct,targetName,newPrice)
+				Toast.makeText(context, "$targetName price Updated", Toast.LENGTH_SHORT).show()
+                
+            }else {
+				Toast.makeText(context, "Requested data not found to Update", Toast.LENGTH_SHORT).show()
+			}
         }
 
         // Save updated data back to the file
@@ -1046,6 +1087,23 @@ Toast.makeText(context, "Error reading log file.", Toast.LENGTH_SHORT).show()
 "Error reading log file."
 }
 }
+
+fun clearProductLog(context: Context) {
+    try {
+        val file = File(context.filesDir, "product_log.txt")
+        if (file.exists()) {
+            file.writeText("")  // Overwrite file with empty text
+            Toast.makeText(context, "Sales log cleared.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "No Sales log found to clear.", Toast.LENGTH_SHORT).show()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Toast.makeText(context, "Error clearing log file.", Toast.LENGTH_SHORT).show()
+    }
+}
+
+
 
 
 
